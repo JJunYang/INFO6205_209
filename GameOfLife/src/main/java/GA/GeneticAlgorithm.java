@@ -17,24 +17,24 @@ import java.util.Random;
 
 public class GeneticAlgorithm {
     public List<Chromosome> population=new ArrayList<Chromosome>();//存放所有的种群基因
-    private int popSize; //种群规模N
-    private int mutationSize; //变异基因规模
-    private int chromoLength;//每条染色体数目m；
-    private double mutationRate=0.01;//基因突变概率pm
-    private int FitnessByCellNum = 8;//每个存活细胞对fitness函数的贡献
-    private int FitnessByMaxGeneration = 5;//最大存活代数对fitness函数的贡献
+    private int popSize; //population size
+    private int mutationSize; //mutation size
+    private int chromoLength;//chromosome length
+    private double mutationRate=0.01;//mutation rate
+    private int FitnessByCellNum = 8;//the contribution of each survival cell to fitness
+    private int FitnessByMaxGeneration = 5;//the contribution of max generation to fitness
 
 
-    private int generation;//种群代数t
-    private int iterNum=1000;//最大迭代次数
-   // private int stepmax=3;//最长步长
+    private int generation;
+    private int iterNum=1000;//max iterator number
+   // private int stepmax=3;//longest step
 
 
     private Chromosome nowGenome;
-    private Chromosome bestFit; //最好适应度对应的染色体
-    private Chromosome iterBestFit;//全局最优染色体
-    private double bestFitness;//种群最大适应度
-    private double worstFitness;//种群最坏适应度
+    private Chromosome bestFit; //chromosome that owns best fitness
+    private Chromosome iterBestFit;//best chromosome
+    private double bestFitness;
+    private double worstFitness;
     private double averageFitness;
 
 
@@ -91,19 +91,19 @@ public class GeneticAlgorithm {
         this.totalFitness = totalFitness;
     }
 
-    private double totalFitness;//种群总适应度
+    private double totalFitness;
     private Random random=new Random();
 
 
 
-    //构造Getting方法
+    //Constructor 
 
     public GeneticAlgorithm(int popSize){
         this.popSize=popSize;
 
     }
     /*
-    初始化种群
+    initialize population
      */
     public void init(){
 
@@ -118,7 +118,7 @@ public class GeneticAlgorithm {
 
     }
     /*
-    计算种群适应度
+    calculate fitness
      */
     public void caculteFitness(){
 
@@ -143,14 +143,14 @@ public class GeneticAlgorithm {
 
         }
         averageFitness = totalFitness / popSize;
-        //因为精度问题导致的平均值大于最好值，将平均值设置成最好值
+        //if average value is greater than best value due to accuracy problem, then set average as best
         averageFitness = averageFitness > bestFitness ? bestFitness : averageFitness;
 
 
     }
 
     /*
-    轮盘赌选择算法
+     Roulette Algorithm
      */
     public Chromosome getChromoRoulette(){
         double db=random.nextDouble();
@@ -169,7 +169,7 @@ public class GeneticAlgorithm {
     }
 
     /*
-    进化算法
+    evolution
      */
     public void evolve() {
         List<Chromosome> childrenGenome = new ArrayList<Chromosome>();
@@ -223,14 +223,14 @@ public class GeneticAlgorithm {
         population = temGen;
 
 
-        //重新计算种群适应度
+        //recalculate fitness
         caculteFitness();
 
 
     }
     
     /*
-    遗传算法GA流程
+    GA flow
      */
     public void geneticAlgorithProcess(){
         generation=1;

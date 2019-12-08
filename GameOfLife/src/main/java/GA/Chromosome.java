@@ -84,7 +84,7 @@ public class Chromosome {
     
 
 	/*
-    构造染色体
+    Construct chromosome
      */
     public Chromosome(int n){
         if (n<0){
@@ -119,7 +119,7 @@ public class Chromosome {
     }
 
     /*
-    染色体变异
+    mutation
      */
     
     public void mutation(int size,double rate){

@@ -17,24 +17,24 @@ import java.util.Random;
  */
 public class GeneticAlgorithm2 {
     
-    private Random random = new Random(); //随机数生成器
+    private Random random = new Random(); //random generator
  
-    private int len=40; // 染色体长度
+    private int len=40; // chromosome length
  
-    private int cellFitness=8; // 每一存活细胞的fitness贡献
-    private int generationFitness=20; //细胞存活代数对fitness贡献
+    private int cellFitness=8; // the contribution of each survival cell to fitness
+    private int generationFitness=20; //the contribution of max generation to fitness
     
-    private int scale; //种群规模
-    private int maxGeneration=200; //最大代数
-    private float irate; //交叉率（所有的个体都需要相互交叉的，这里的交叉率指交叉时每位交叉发生交叉的可能性）
-    private double mutationRate1=0.3; //变异率（某个个体发生变异的可能性）
-    private double mutationRate2=0.2; //对于确定发生变异的个体每位发生变异的可能性
+    private int scale; //population scale
+    private int maxGeneration=200; 
+    private float irate;//not needed
+    private double mutationRate1=0.3; //mutation rate（the possibility of mutation of individual）
+    private double mutationRate2=0.2; //mutation rate (the possibility of mutation of each gene of specific individual)
  
-    private List<Chromosome> population=new ArrayList<Chromosome>();//上一代种群
-    private double[] fitness = null; //种群的适应度
+    private List<Chromosome> population=new ArrayList<Chromosome>();//last generation of population
+    private double[] fitness = null; //fitness
  
-    private double bestFitness=-1; //最优个体的价值
-	private Chromosome bestChromosome;// 最优个体
+    private double bestFitness=-1; //best fitness
+	private Chromosome bestChromosome;// best chromosome
 
 	class SortFitness implements Comparable<SortFitness> {
 		int index;
@@ -56,19 +56,19 @@ public class GeneticAlgorithm2 {
         this.scale = scale;
         initPopulation();
         for(int i = 0; i < maxGeneration; i++) {
-            //计算种群适应度值
+            //calculate fitness
             calcFitness();
-            //记录最优个体
+            //record best fitness
             recordBestFit();
-	   //进行种群选择
+	   //population selecting
             select();
-	   //进行交叉
+	   //intersect process
 	   //intersect();
-	   //发生变异
+	   //mutation
             mutation();
-            //细胞进行变化
+            //cells transforation
             transform();
-            //输出
+            //output
             print(i);
         }
 		
@@ -133,15 +133,15 @@ public class GeneticAlgorithm2 {
 
 		List<Chromosome> tmpPopulation = new ArrayList<Chromosome>();
 
-		// 保留前10%的个体
+		// reserve top 10% individuals
 		int reserve = (int) (scale * 0.1);
 		for (int i = 0; i < reserve; i++) {
 			tmpPopulation.add(population.get(sortFitness[i].index));
-			// 将加入后的个体随机化
+			// randomize the later individuals joined in
 			population.set(sortFitness[i].index, new Chromosome(len));
 		}
 
-		// 再随机90%的个体出来
+		// then randomize 90% individuals
 		List<Integer> list = new ArrayList<Integer>();
 		for (int i = 0; i < scale; i++) {
 			list.add(i);

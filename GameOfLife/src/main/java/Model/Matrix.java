@@ -14,23 +14,23 @@ import java.util.Random;
  */
 public class Matrix {
     /**
-     * 矩阵高度
+     * 
      */
     private int height;
 
     /**
-     * 矩阵宽度
+     * 
      */
     private int width;
 
 
     /**
-     * 总的变化次数
+     * total change times
      */
     private int generation=0;
 
     /**
-     * 矩阵状态，1表示活，0表示死
+     * status，1 for survived，0 for died
      */
     private int[][] matrix;
     
@@ -62,10 +62,10 @@ public class Matrix {
     }
 
     /**
-     * 上一个状态到下一个状态的转移
-     * 根据规则可以总结得出两条规则:
-     * 1. 对于周围活着的细胞为3的情况,下一个状态该细胞总是为活
-     * 2. 对于周围活着的细胞为2的情况,下一个状态与上一状态相同
+     * change from last status to the next status
+     * two rules:
+     * 1. Next to 3 cells, the next status is survived
+     * 2. Next to 2 cells, the next status doesn't change
      */
     public void transform(){
         int[][] nextMatrix=new int[height][width];
@@ -90,42 +90,42 @@ public class Matrix {
 
 
     /**
-     * 统计每个细胞周围活着的个数
-     * @param x 横坐标
-     * @param y 纵坐标
+     * count survived cells surrounding
+     * @param x 
+     * @param y 
      * @return
      */
     public int findLifedNum(int y, int x){
         int num=0;
-        //左边
+        //left
         if(x!=0){
             num+=matrix[y][x-1];
         }
-        //左上角
+        //top left
         if(x!=0&&y!=0){
             num+=matrix[y-1][x-1];
         }
-        //上边
+        //top
         if(y!=0){
             num+=matrix[y-1][x];
         }
-        //右上
+        //top right
         if(x!=width-1&&y!=0){
             num+=matrix[y-1][x+1];
         }
-        //右边
+        //right
         if(x!=width-1){
             num+=matrix[y][x+1];
         }
-        //右下
+        //bottom right
         if(x!=width-1&&y!=height-1){
             num+=matrix[y+1][x+1];
         }
-        //下边
+        //bottom
         if(y!=height-1){
             num+=matrix[y+1][x];
         }
-        //左下
+        //bottom left
         if(x!=0&&y!=height-1){
             num+=matrix[y+1][x-1];
         }
