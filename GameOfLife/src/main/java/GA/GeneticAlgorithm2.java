@@ -34,22 +34,23 @@ public class GeneticAlgorithm2 {
     private double[] fitness = null; //种群的适应度
  
     private double bestFitness=-1; //最优个体的价值
-    private Chromosome bestChromosome;//最优个体
+	private Chromosome bestChromosome;// 最优个体
 
-    class SortFitness implements Comparable<SortFitness>{
-	int index;
-	double fitness;
-         public int compareTo(SortFitness c) {
-             double cfitness = c.fitness;
-             if(fitness > cfitness) {
-		return -1;
-             } else if(fitness < cfitness) {
-                 return 1;
-             } else {
-                 return 0;
-             }
-         }
-    } 
+	class SortFitness implements Comparable<SortFitness> {
+		int index;
+		double fitness;
+
+		public int compareTo(SortFitness c) {
+			double cfitness = c.fitness;
+			if (fitness > cfitness) {
+				return -1;
+			} else if (fitness < cfitness) {
+				return 1;
+			} else {
+				return 0;
+			}
+		}
+	}
     
     public void evolve(int scale) {
         this.scale = scale;
@@ -89,14 +90,26 @@ public class GeneticAlgorithm2 {
     }
     
     public double evaluate(Chromosome g){
-        int gene[][] = g.getGene();
-        int countCell = 0;
-        for (int i=0;i<len;i++)
-            for (int j=0;j<len;j++)
-                countCell+=gene[i][j];
-        if (countCell == 0 ) return 0;
-            else if (g.isDead()) return 0;
-            else return countCell*cellFitness+g.getGeneration()*generationFitness;
+//		int gene[][] = g.getGene();
+//		int countCell = 0;
+//		for (int i = 0; i < len; i++)
+//			for (int j = 0; j < len; j++)
+//				countCell += gene[i][j];
+//		if (countCell == 0)
+//			return 0;
+//		else if (g.isDead())
+//			return 0;
+//		else
+//			return countCell * cellFitness + g.getGeneration() * generationFitness;
+
+        int[] genotype=g.getGenotype();
+        int cell=0;
+        for(int i=0;i<genotype.length;i++) {
+        	cell+=genotype[i];
+        }
+        if(cell==0)return 0;
+        else if(g.isDead())return 0;
+        else return cell*cellFitness+g.getFitness()*generationFitness;
     }
     public void recordBestFit(){
         int i = 0;
@@ -105,40 +118,40 @@ public class GeneticAlgorithm2 {
                 bestFitness = fitness[i];
                 bestChromosome = g;
             }
-            //i++;
+            i++;
         }    
     }
     
-    public void select(){
-	SortFitness[] sortFitness = new SortFitness[scale];
-	for(int i = 0; i < scale; i++) {
-            sortFitness[i] = new SortFitness();
-	   sortFitness[i].index = i;
-	   sortFitness[i].fitness = fitness[i];
+	public void select() {
+		SortFitness[] sortFitness = new SortFitness[scale];
+		for (int i = 0; i < scale; i++) {
+			sortFitness[i] = new SortFitness();
+			sortFitness[i].index = i;
+			sortFitness[i].fitness = fitness[i];
+		}
+		Arrays.sort(sortFitness);
+
+		List<Chromosome> tmpPopulation = new ArrayList<Chromosome>();
+
+		// 保留前10%的个体
+		int reserve = (int) (scale * 0.1);
+		for (int i = 0; i < reserve; i++) {
+			tmpPopulation.add(population.get(sortFitness[i].index));
+			// 将加入后的个体随机化
+			population.set(sortFitness[i].index, new Chromosome(len));
+		}
+
+		// 再随机90%的个体出来
+		List<Integer> list = new ArrayList<Integer>();
+		for (int i = 0; i < scale; i++) {
+			list.add(i);
+		}
+		for (int i = reserve; i < scale; i++) {
+			int selectid = list.remove((int) (list.size() * Math.random()));
+			tmpPopulation.add(population.get(selectid));
+		}
+		population = tmpPopulation;
 	}
-	Arrays.sort(sortFitness);
- 
-	List<Chromosome> tmpPopulation=new ArrayList<Chromosome>();
- 
-	//保留前10%的个体
-	int reserve = (int)(scale * 0.1);
-	for(int i = 0; i < reserve; i++) {
-	    tmpPopulation.add(population.get(sortFitness[i].index));
-	   //将加入后的个体随机化
-	    population.set(sortFitness[i].index, new Chromosome(len));
-	}
- 
-	//再随机90%的个体出来
-	List<Integer> list = new ArrayList<Integer>();
-	for(int i = 0; i < scale; i++) {
-	    list.add(i);
-	}
-	for(int i = reserve; i < scale; i++) {
-            int selectid = list.remove((int)(list.size()*Math.random()));
-            tmpPopulation.add(population.get(selectid));
-        }
-	population = tmpPopulation;
-    }
     
     public void mutation(){
         for (Chromosome g : population){
@@ -155,20 +168,23 @@ public class GeneticAlgorithm2 {
         }
     }
     
-    public void print(int generation){
-        System.out.println("this is generation"+generation);
-        System.out.println("the best fitness is"+bestFitness);
-        for(int i=0;i<len;i++){
-             for (int j=0;j<len;j++)
-                if(bestChromosome.gene[i][j]==1){
-                    System.out.printf("1");
-                }
-                else{
-                    System.out.printf("0");
-                }
-                System.out.printf(" ");
-            }
-    }
+	public void print(int generation) {
+		System.out.println("This is generation" + generation);
+		System.out.println("The best fitness is" + bestFitness);
+//		for (int i = 0; i < len; i++) {
+//			for (int j = 0; j < len; j++)
+//				if (bestChromosome.gene[i][j] == 1) {
+//					System.out.printf("1");
+//				} else {
+//					System.out.printf("0");
+//				}
+//			System.out.printf(" ");
+//		}
+		System.out.print("The genotype is: ");
+		for(int i=0;i<bestChromosome.getGenotype().length;i++) {
+			System.out.print(bestChromosome.getGenotype()[i]);
+		}
+	}
 
     public Chromosome getBestChromosome() {
         return bestChromosome;

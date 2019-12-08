@@ -1,5 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
+  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -21,12 +21,30 @@ public class Chromosome {
     private int width;
     private double rate = 0.01;
     private int[][] startGene;
+    public int[]genotype;
+    public int[]startgenotype;
 
 
-    public int getFitness() {
+	public int[] getGenotype() {
+		return genotype;
+	}
 
-        return fitness;
-    }
+	public void setGenotype(int[] genotype) {
+		this.genotype = genotype;
+	}
+
+	public int[] getStartgenotype() {
+		return startgenotype;
+	}
+
+	public void setStartgenotype(int[] startgenotype) {
+		this.startgenotype = startgenotype;
+	}
+
+	public int getFitness() {
+
+		return fitness;
+	}
 
     public void setFitness(int fitness) {
 
@@ -78,8 +96,11 @@ public class Chromosome {
             for (int j=0; j<n;j++) {
                 gene[i][j]=random.nextInt(2);
                 startGene[i][j] = gene[i][j];
+                genotype[i*n+j]=gene[i][j];
+                startgenotype[i*n+j]=gene[i][j];
             }
         }
+        
     }
     public Chromosome(){
 
@@ -93,6 +114,8 @@ public class Chromosome {
         this.height = n;
         this.gene=new int[n][n];
         this.startGene = new int[n][n];
+        this.genotype=new int[n*n];
+        this.startgenotype=new int[n*n];
     }
 
     /*
@@ -111,19 +134,23 @@ public class Chromosome {
         }
     }
     
-    public void print(){
-     for(int i=0;i<width;i++){
-             for (int j=0;j<height;j++)
-                if(gene[i][j]==1){
-                    System.out.printf("1");
-                }
-                else{
-                    System.out.printf("0");
-                }
-                System.out.printf(" ");
-            }    
-         System.out.println();
-    }
+//    public void print(){
+//     for(int i=0;i<width;i++){
+//             for (int j=0;j<height;j++)
+//                if(gene[i][j]==1){
+//                    System.out.printf("1");
+//                }
+//                else{
+//                    System.out.printf("0");
+//                }
+//                System.out.printf(" ");
+//            }    
+//         System.out.println();
+//    }
+    
+	public void print() {
+		System.out.print(genotype);
+	}
     
     public boolean isDead(){
         int [][]tmpGene = new int[height][width];
