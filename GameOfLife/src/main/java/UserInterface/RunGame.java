@@ -38,16 +38,16 @@ public class RunGame {
         jf.setSize(1000,1200);
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        buttonPanel.add(new JButton("Beging"));
-        buttonPanel.add(new JButton("Beging"));
-        buttonPanel.add(new JButton("Beging"));
-        buttonPanel.add(new JButton("Beging"));
-        
+//        buttonPanel.add(new JButton("Beging"));
+//        buttonPanel.add(new JButton("Beging"));
+//        buttonPanel.add(new JButton("Beging"));
+//        buttonPanel.add(new JButton("Beging"));
+        JTextField textField=new JTextField();
         
 
                 
         buttonPanel.setBackground(Color.WHITE);
-        jf.getContentPane().add("North",buttonPanel);
+        jf.getContentPane().add("North",textField);
         
         //使用GA生成初始pattern
         GeneticAlgorithm2 ga = new GeneticAlgorithm2();
@@ -62,6 +62,7 @@ public class RunGame {
         while (cellMatrix.getGeneration() < maxGeneration){
             cellMatrix.transform();
             showMatrix(jf);
+            textField.setText("This is generation "+cellMatrix.getGeneration()+" !");
             try {
                 TimeUnit.MILLISECONDS.sleep(100);
             } catch (InterruptedException ex) {
