@@ -102,9 +102,21 @@ public class Chromosome {
         
     }
     public Chromosome(){
-
+        
     }
 
+    public int[][] expression(int[] a) {
+        int n = (int)Math.sqrt(a.length);
+        if (n*n < a.length) return null;
+        int[][] b = new int[n][n];
+        for (int i=0; i < n; i++) {
+            for (int j=0; j < n; j++) {
+                b[i][j] = a[n*i + j];
+            }
+        }
+        return b;
+    }
+    
     public void initSize(int n){
         if (n<0){
             return;
