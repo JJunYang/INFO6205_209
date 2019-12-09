@@ -22,7 +22,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import org.apache.log4j.*;
 /**
  *
  * @author lhr
@@ -41,10 +40,7 @@ public class RunGame {
         jf.setSize(1000,1200);
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-//        buttonPanel.add(new JButton("Beging"));
-//        buttonPanel.add(new JButton("Beging"));
-//        buttonPanel.add(new JButton("Beging"));
-//        buttonPanel.add(new JButton("Beging"));
+
         JTextField textField=new JTextField();
         
 
@@ -52,7 +48,6 @@ public class RunGame {
         buttonPanel.setBackground(Color.WHITE);
         jf.getContentPane().add("North",textField);
         
-        //使用GA生成初始pattern
         GeneticAlgorithm ga = new GeneticAlgorithm();
         long seed = System.currentTimeMillis();
         Random random = new Random(seed);
@@ -68,8 +63,7 @@ public class RunGame {
         ga.evolve(100,random);
         Chromosome g = ga.getBestChromosome();
         cellMatrix = new Matrix(ga.getLen(),ga.getLen(),0,g.getStartGene());
-        //随机生成初始pattern 
-        //cellMatrix = new Matrix();
+
         jf.setCellMatrix(cellMatrix);
         initGridLayout(jf);
         jf.setVisible(true);
@@ -102,7 +96,6 @@ public class RunGame {
             }
         }
         jf.getContentPane().add("Center",gridPanel);
-        //jf.setContentPane(gridPanel);
     }
     
     private static void showMatrix(GameOfLifeJFrame jf) {
@@ -123,6 +116,5 @@ public class RunGame {
             }
         }
         jf.getContentPane().add("Center",gridPanel);
-        //jf.setContentPane(gridPanel);
     }
 }

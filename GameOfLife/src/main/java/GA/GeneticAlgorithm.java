@@ -19,7 +19,7 @@ import org.apache.log4j.*;
  * @author lhr
  */
 public class GeneticAlgorithm {
-	public static Logger logger=Logger.getLogger(GeneticAlgorithm.class.getName());
+    public static Logger logger=Logger.getLogger(GeneticAlgorithm.class.getName());
     private Random random = new Random(); //random generator
  
     private int len=40; // chromosome length
@@ -66,8 +66,6 @@ public class GeneticAlgorithm {
             recordBestFit();
             //population selecting
             select();
-			// intersect process
-			// intersect();
             //mutation
             mutation();
             //cells transforation
@@ -186,7 +184,7 @@ public class GeneticAlgorithm {
 	}
     
 	public void log(int generation) {
-		PropertyConfigurator.configure("src/log4j.properties");
+	PropertyConfigurator.configure("src/log4j.properties");
         logger.info("This is generation" + generation);
         logger.info("The best fitness is" + bestFitness);
         logger.info("The genotype is: ");
@@ -204,6 +202,19 @@ public class GeneticAlgorithm {
         return len;
     }
 
+    public void setScale(int scale) {
+        this.scale = scale;
+    }
+
+    public int getScale() {
+        return scale;
+    }
+
+    public List<Chromosome> getPopulation() {
+        return population;
+    }
+    
+    
     
     
 }
