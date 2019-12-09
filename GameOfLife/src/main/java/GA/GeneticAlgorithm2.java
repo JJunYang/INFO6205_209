@@ -66,6 +66,8 @@ public class GeneticAlgorithm2 {
             recordBestFit();
             //population selecting
             select();
+			// intersect process
+			// intersect();
             //mutation
             mutation();
             //cells transforation
