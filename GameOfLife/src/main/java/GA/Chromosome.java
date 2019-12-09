@@ -86,12 +86,11 @@ public class Chromosome {
 	/*
     Construct chromosome
      */
-    public Chromosome(int n){
+    public Chromosome(int n,Random random){
         if (n<0){
             return;
         }
         initSize(n);
-        Random random = new Random();
         for(int i=0;i<n;i++){
             for (int j=0; j<n;j++) {
                 gene[i][j]=random.nextInt(2);
