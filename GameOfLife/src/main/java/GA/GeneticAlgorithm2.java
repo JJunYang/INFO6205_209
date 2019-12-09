@@ -163,15 +163,6 @@ public class GeneticAlgorithm2 {
 	public void print(int generation) {
 		System.out.println("This is generation" + generation);
 		System.out.println("The best fitness is" + bestFitness);
-//		for (int i = 0; i < len; i++) {
-//			for (int j = 0; j < len; j++)
-//				if (bestChromosome.gene[i][j] == 1) {
-//					System.out.printf("1");
-//				} else {
-//					System.out.printf("0");
-//				}
-//			System.out.printf(" ");
-//		}
 		System.out.print("The genotype is: ");
 		for(int i=0;i<bestChromosome.getGenotype().length;i++) {
 			System.out.print(bestChromosome.getGenotype()[i]);
