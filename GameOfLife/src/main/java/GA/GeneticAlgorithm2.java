@@ -54,25 +54,25 @@ public class GeneticAlgorithm2 {
     
     public void evolve(int scale,Random random) {
         this.scale = scale;
-        this.random = random;
-        initPopulation();
-        for(int i = 0; i < maxGeneration; i++) {
-            //calculate fitness
-            calcFitness();
-            //record best fitness
-            recordBestFit();
-	   //population selecting
-            select();
-	   //intersect process
-	   //intersect();
-	   //mutation
-            mutation();
-            //cells transforation
-            transform();
-            //output
-            print(i);
-        }
-		
+		this.random = random;
+		initPopulation();
+		for (int i = 0; i < maxGeneration; i++) {
+			// calculate fitness
+			calcFitness();
+			// record best fitness
+			recordBestFit();
+			// population selecting
+			select();
+			// intersect process
+			// intersect();
+			// mutation
+			mutation();
+			// cells transformation
+			transform();
+			// output
+			print(i);
+		}
+
     }
     
     public void initPopulation(){
@@ -91,17 +91,6 @@ public class GeneticAlgorithm2 {
     }
     
     public double evaluate(Chromosome g){
-//		int gene[][] = g.getGene();
-//		int countCell = 0;
-//		for (int i = 0; i < len; i++)
-//			for (int j = 0; j < len; j++)
-//				countCell += gene[i][j];
-//		if (countCell == 0)
-//			return 0;
-//		else if (g.isDead())
-//			return 0;
-//		else
-//			return countCell * cellFitness + g.getGeneration() * generationFitness;
 
         int[] genotype=g.getGenotype();
         int cell=0;
@@ -174,15 +163,6 @@ public class GeneticAlgorithm2 {
 	public void print(int generation) {
 		System.out.println("This is generation" + generation);
 		System.out.println("The best fitness is" + bestFitness);
-//		for (int i = 0; i < len; i++) {
-//			for (int j = 0; j < len; j++)
-//				if (bestChromosome.gene[i][j] == 1) {
-//					System.out.printf("1");
-//				} else {
-//					System.out.printf("0");
-//				}
-//			System.out.printf(" ");
-//		}
 		System.out.print("The genotype is: ");
 		for(int i=0;i<bestChromosome.getGenotype().length;i++) {
 			System.out.print(bestChromosome.getGenotype()[i]);
