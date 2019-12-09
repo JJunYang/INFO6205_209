@@ -6,7 +6,7 @@
 package UserInterface;
 
 import GA.Chromosome;
-import GA.GeneticAlgorithm2;
+import GA.GeneticAlgorithm;
 import Model.Matrix;
 import java.awt.Color;
 import java.awt.Container;
@@ -53,8 +53,8 @@ public class RunGame {
         jf.getContentPane().add("North",textField);
         
         //使用GA生成初始pattern
-        GeneticAlgorithm2 ga = new GeneticAlgorithm2();
-        long seed = 1575855623348L;
+        GeneticAlgorithm ga = new GeneticAlgorithm();
+        long seed = System.currentTimeMillis();
         Random random = new Random(seed);
         try{
             String path = "./"+seed+".txt";

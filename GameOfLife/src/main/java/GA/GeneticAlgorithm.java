@@ -18,8 +18,8 @@ import org.apache.log4j.*;
  *
  * @author lhr
  */
-public class GeneticAlgorithm2 {
-	public static Logger logger=Logger.getLogger(GeneticAlgorithm2.class.getName());
+public class GeneticAlgorithm {
+	public static Logger logger=Logger.getLogger(GeneticAlgorithm.class.getName());
     private Random random = new Random(); //random generator
  
     private int len=40; // chromosome length
