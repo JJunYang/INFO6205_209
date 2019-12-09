@@ -32,9 +32,9 @@ public class GeneticAlgorithm2 {
  
     private List<Chromosome> population=new ArrayList<Chromosome>();//last generation of population
     private double[] fitness = null; //fitness
- 
+    
     private double bestFitness=-1; //best fitness
-	private Chromosome bestChromosome;// best chromosome
+    private Chromosome bestChromosome;// best chromosome
 
 	class SortFitness implements Comparable<SortFitness> {
 		int index;
@@ -52,8 +52,9 @@ public class GeneticAlgorithm2 {
 		}
 	}
     
-    public void evolve(int scale) {
+    public void evolve(int scale,Random random) {
         this.scale = scale;
+        this.random = random;
         initPopulation();
         for(int i = 0; i < maxGeneration; i++) {
             //calculate fitness
@@ -77,7 +78,7 @@ public class GeneticAlgorithm2 {
     public void initPopulation(){
         fitness = new double[scale];
         for (int i=0; i<scale;i++){
-            Chromosome g = new Chromosome(len);
+            Chromosome g = new Chromosome(len,random);
             population.add(g);
         }
     }
@@ -113,10 +114,12 @@ public class GeneticAlgorithm2 {
     }
     public void recordBestFit(){
         int i = 0;
+        double totalFitness = 0.0;
         for (Chromosome g : population) {
             if (fitness[i] > bestFitness){
                 bestFitness = fitness[i];
                 bestChromosome = g;
+                totalFitness+=fitness[i];
             }
             i++;
         }    
@@ -138,7 +141,7 @@ public class GeneticAlgorithm2 {
 		for (int i = 0; i < reserve; i++) {
 			tmpPopulation.add(population.get(sortFitness[i].index));
 			// randomize the later individuals joined in
-			population.set(sortFitness[i].index, new Chromosome(len));
+			population.set(sortFitness[i].index, new Chromosome(len,random));
 		}
 
 		// then randomize 90% individuals
@@ -185,7 +188,7 @@ public class GeneticAlgorithm2 {
 			System.out.print(bestChromosome.getGenotype()[i]);
 		}
 	}
-
+    
     public Chromosome getBestChromosome() {
         return bestChromosome;
     }
