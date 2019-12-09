@@ -176,12 +176,8 @@ public class GeneticAlgorithm2 {
 	public void print(int generation) {
 
 		System.out.println("This is generation" + generation);
-
 		System.out.println("The best fitness is" + bestFitness);
-
-
 		System.out.print("The genotype is: ");
-
 		for(int i=0;i<bestChromosome.getGenotype().length;i++) {
 			System.out.print(bestChromosome.getGenotype()[i]);
 		}
