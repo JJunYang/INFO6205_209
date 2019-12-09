@@ -11,6 +11,8 @@ import Model.Matrix;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.GridLayout;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
@@ -51,7 +53,18 @@ public class RunGame {
         
         //使用GA生成初始pattern
         GeneticAlgorithm2 ga = new GeneticAlgorithm2();
-        ga.evolve(100);
+        long seed = System.currentTimeMillis();
+        Random random = new Random(System.currentTimeMillis());
+        try{
+            String path = "./"+seed+".txt";
+            BufferedWriter bw = new BufferedWriter(new FileWriter(path));
+            String s = String.valueOf(seed);
+            bw.write(s);
+            bw.close();
+        }catch (Exception e){
+            System.out.println("Have problems with saving seed");
+        }
+        ga.evolve(100,random);
         Chromosome g = ga.getBestChromosome();
         cellMatrix = new Matrix(ga.getLen(),ga.getLen(),0,g.getStartGene());
         //随机生成初始pattern 

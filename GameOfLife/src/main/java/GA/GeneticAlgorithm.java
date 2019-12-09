@@ -108,7 +108,7 @@ public class GeneticAlgorithm {
     public void init(){
 
         for(int i=0;i<popSize;i++){
-            Chromosome g=new Chromosome(100);
+            Chromosome g=new Chromosome(100,random);
             Matrix m = new Matrix(g.getHeight(), g.getWidth(), generation, g.getGene());
             g.setFitness(getFitness(m));
             population.add(g);

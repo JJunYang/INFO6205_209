@@ -12,6 +12,5 @@ package GA;
 public class Main {
     public static void main(String args[]){
         GeneticAlgorithm2 ga = new GeneticAlgorithm2();
-        ga.evolve(100);
     }
 }
