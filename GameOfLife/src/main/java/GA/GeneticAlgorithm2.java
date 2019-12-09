@@ -6,17 +6,20 @@
 package GA;
 
 import Model.Matrix;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+
+import org.apache.log4j.*;
 /**
  *
  * @author lhr
  */
 public class GeneticAlgorithm2 {
-    
+	public static Logger logger=Logger.getLogger(GeneticAlgorithm2.class.getName());
     private Random random = new Random(); //random generator
  
     private int len=40; // chromosome length
@@ -61,16 +64,15 @@ public class GeneticAlgorithm2 {
             calcFitness();
             //record best fitness
             recordBestFit();
-	   //population selecting
+            //population selecting
             select();
-	   //intersect process
-	   //intersect();
-	   //mutation
+            //mutation
             mutation();
             //cells transforation
             transform();
             //output
             print(i);
+            log(i);
         }
 		
     }
@@ -172,23 +174,30 @@ public class GeneticAlgorithm2 {
     }
     
 	public void print(int generation) {
+
 		System.out.println("This is generation" + generation);
+
 		System.out.println("The best fitness is" + bestFitness);
-//		for (int i = 0; i < len; i++) {
-//			for (int j = 0; j < len; j++)
-//				if (bestChromosome.gene[i][j] == 1) {
-//					System.out.printf("1");
-//				} else {
-//					System.out.printf("0");
-//				}
-//			System.out.printf(" ");
-//		}
+
+
 		System.out.print("The genotype is: ");
+
 		for(int i=0;i<bestChromosome.getGenotype().length;i++) {
 			System.out.print(bestChromosome.getGenotype()[i]);
 		}
 	}
     
+	public void log(int generation) {
+		PropertyConfigurator.configure("src/log4j.properties");
+        logger.info("This is generation" + generation);
+        logger.info("The best fitness is" + bestFitness);
+        logger.info("The genotype is: ");
+        String s="";
+		for(int i=0;i<bestChromosome.getGenotype().length;i++) {
+			s=s+bestChromosome.getGenotype()[i];
+		}
+	    logger.info(s);	
+	}
     public Chromosome getBestChromosome() {
         return bestChromosome;
     }
