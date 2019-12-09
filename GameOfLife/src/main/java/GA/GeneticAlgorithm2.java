@@ -22,7 +22,7 @@ public class GeneticAlgorithm2 {
     private int len=40; // chromosome length
  
     private int cellFitness=8; // the contribution of each survival cell to fitness
-    private int generationFitness=20; //the contribution of max generation to fitness
+    private int generationFitness=20; //due
     
     private int scale; //population scale
     private int maxGeneration=200; 
@@ -110,7 +110,7 @@ public class GeneticAlgorithm2 {
         }
         if(cell==0)return 0;
         else if(g.isDead())return 0;
-        else return cell*cellFitness+g.getFitness()*generationFitness;
+        else return cell*cellFitness+g.getGeneration()*generationFitness;
     }
     public void recordBestFit(){
         int i = 0;
