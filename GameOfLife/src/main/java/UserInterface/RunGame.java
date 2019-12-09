@@ -22,6 +22,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import org.apache.log4j.*;
 /**
  *
  * @author lhr
@@ -53,12 +54,12 @@ public class RunGame {
         
         //使用GA生成初始pattern
         GeneticAlgorithm2 ga = new GeneticAlgorithm2();
-        long seed = System.currentTimeMillis();
-        Random random = new Random(System.currentTimeMillis());
+        long seed = 1575855623348L;
+        Random random = new Random(seed);
         try{
             String path = "./"+seed+".txt";
             BufferedWriter bw = new BufferedWriter(new FileWriter(path));
-            String s = String.valueOf(seed);
+            String s = String.valueOf(seed+"L");
             bw.write(s);
             bw.close();
         }catch (Exception e){

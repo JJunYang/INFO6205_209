@@ -6,23 +6,26 @@
 package GA;
 
 import Model.Matrix;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+
+import org.apache.log4j.*;
 /**
  *
  * @author lhr
  */
 public class GeneticAlgorithm2 {
-    
+	public static Logger logger=Logger.getLogger(GeneticAlgorithm2.class.getName());
     private Random random = new Random(); //random generator
  
     private int len=40; // chromosome length
  
     private int cellFitness=8; // the contribution of each survival cell to fitness
-    private int generationFitness=20; //due
+    private int generationFitness=20; //the contribution of max generation to fitness
     
     private int scale; //population scale
     private int maxGeneration=200; 
@@ -54,26 +57,27 @@ public class GeneticAlgorithm2 {
     
     public void evolve(int scale,Random random) {
         this.scale = scale;
-		this.random = random;
-		initPopulation();
-		for (int i = 0; i < maxGeneration; i++) {
-			// calculate fitness
-			calcFitness();
-			// record best fitness
-			recordBestFit();
-			// population selecting
-			select();
+        this.random = random;
+        initPopulation();
+        for(int i = 0; i < maxGeneration; i++) {
+            //calculate fitness
+            calcFitness();
+            //record best fitness
+            recordBestFit();
+            //population selecting
+            select();
 			// intersect process
 			// intersect();
-			// mutation
-			mutation();
-			// cells transforation
-			transform();
-			// output
-			print(i);
-		}
-
-	}
+            //mutation
+            mutation();
+            //cells transforation
+            transform();
+            //output
+            print(i);
+            log(i);
+        }
+		
+    }
     
     public void initPopulation(){
         fitness = new double[scale];
@@ -91,6 +95,17 @@ public class GeneticAlgorithm2 {
     }
     
     public double evaluate(Chromosome g){
+//		int gene[][] = g.getGene();
+//		int countCell = 0;
+//		for (int i = 0; i < len; i++)
+//			for (int j = 0; j < len; j++)
+//				countCell += gene[i][j];
+//		if (countCell == 0)
+//			return 0;
+//		else if (g.isDead())
+//			return 0;
+//		else
+//			return countCell * cellFitness + g.getGeneration() * generationFitness;
 
         int[] genotype=g.getGenotype();
         int cell=0;
@@ -99,7 +114,7 @@ public class GeneticAlgorithm2 {
         }
         if(cell==0)return 0;
         else if(g.isDead())return 0;
-        else return cell*cellFitness+g.getGeneration()*generationFitness;
+        else return cell*cellFitness+g.getFitness()*generationFitness;
     }
     public void recordBestFit(){
         int i = 0;
@@ -161,6 +176,7 @@ public class GeneticAlgorithm2 {
     }
     
 	public void print(int generation) {
+
 		System.out.println("This is generation" + generation);
 		System.out.println("The best fitness is" + bestFitness);
 		System.out.print("The genotype is: ");
@@ -169,6 +185,17 @@ public class GeneticAlgorithm2 {
 		}
 	}
     
+	public void log(int generation) {
+		PropertyConfigurator.configure("src/log4j.properties");
+        logger.info("This is generation" + generation);
+        logger.info("The best fitness is" + bestFitness);
+        logger.info("The genotype is: ");
+        String s="";
+		for(int i=0;i<bestChromosome.getGenotype().length;i++) {
+			s=s+bestChromosome.getGenotype()[i];
+		}
+	    logger.info(s);	
+	}
     public Chromosome getBestChromosome() {
         return bestChromosome;
     }

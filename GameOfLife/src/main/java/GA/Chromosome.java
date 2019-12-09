@@ -133,7 +133,19 @@ public class Chromosome {
         }
     }
     
-
+//    public void print(){
+//     for(int i=0;i<width;i++){
+//             for (int j=0;j<height;j++)
+//                if(gene[i][j]==1){
+//                    System.out.printf("1");
+//                }
+//                else{
+//                    System.out.printf("0");
+//                }
+//                System.out.printf(" ");
+//            }    
+//         System.out.println();
+//    }
     
 	public void print() {
 		System.out.print(genotype);
