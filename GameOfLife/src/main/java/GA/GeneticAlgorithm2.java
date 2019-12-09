@@ -54,26 +54,26 @@ public class GeneticAlgorithm2 {
     
     public void evolve(int scale,Random random) {
         this.scale = scale;
-        this.random = random;
-        initPopulation();
-        for(int i = 0; i < maxGeneration; i++) {
-            //calculate fitness
-            calcFitness();
-            //record best fitness
-            recordBestFit();
-	   //population selecting
-            select();
-	   //intersect process
-	   //intersect();
-	   //mutation
-            mutation();
-            //cells transforation
-            transform();
-            //output
-            print(i);
-        }
-		
-    }
+		this.random = random;
+		initPopulation();
+		for (int i = 0; i < maxGeneration; i++) {
+			// calculate fitness
+			calcFitness();
+			// record best fitness
+			recordBestFit();
+			// population selecting
+			select();
+			// intersect process
+			// intersect();
+			// mutation
+			mutation();
+			// cells transforation
+			transform();
+			// output
+			print(i);
+		}
+
+	}
     
     public void initPopulation(){
         fitness = new double[scale];
@@ -91,17 +91,6 @@ public class GeneticAlgorithm2 {
     }
     
     public double evaluate(Chromosome g){
-//		int gene[][] = g.getGene();
-//		int countCell = 0;
-//		for (int i = 0; i < len; i++)
-//			for (int j = 0; j < len; j++)
-//				countCell += gene[i][j];
-//		if (countCell == 0)
-//			return 0;
-//		else if (g.isDead())
-//			return 0;
-//		else
-//			return countCell * cellFitness + g.getGeneration() * generationFitness;
 
         int[] genotype=g.getGenotype();
         int cell=0;
